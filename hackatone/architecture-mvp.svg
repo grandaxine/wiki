@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1040" viewBox="0 0 1440 1040" role="img" aria-labelledby="title desc">
+  <title id="title">ИИ-разбор торгового журнала — архитектура MVP</title>
+  <desc id="desc">Трейдер задаёт правило, LLM предлагает проверяемую формулировку, трейдер её подтверждает. Backend читает исполненные операции через T-Invest API, нормализует и хранит их в PostgreSQL. Код проверяет правила, LLM объясняет найденные эпизоды, трейдер получает еженедельную карточку.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1425"/>
+      <stop offset="100%" stop-color="#102945"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#030913" flood-opacity="0.32"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#75c8ed"/>
+    </marker>
+    <style>
+      .title{font-family:Arial,Helvetica,sans-serif;font-size:42px;font-weight:700;fill:#f4f8ff}
+      .subtitle{font-family:Arial,Helvetica,sans-serif;font-size:20px;fill:#a9bfd4}
+      .lane{font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;fill:#80d7ec}
+      .box-title{font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:700;fill:#f3f8ff}
+      .box-body{font-family:Arial,Helvetica,sans-serif;font-size:18px;fill:#bed0df}
+      .tag{font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;letter-spacing:1px}
+      .foot{font-family:Arial,Helvetica,sans-serif;font-size:17px;fill:#bed0df}
+      .line{fill:none;stroke:#75c8ed;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+    </style>
+  </defs>
+
+  <rect width="1440" height="1040" fill="url(#bg)"/>
+  <circle cx="1300" cy="52" r="260" fill="#4ac1dc" opacity=".06"/>
+  <circle cx="35" cy="1010" r="300" fill="#3d8cdd" opacity=".05"/>
+  <text x="80" y="82" class="title">ИИ-разбор торгового журнала</text>
+  <text x="80" y="118" class="subtitle">Архитектура MVP · постторговая аналитика · без выставления заявок</text>
+  <line x1="80" y1="149" x2="1360" y2="149" stroke="#2a4963" stroke-width="2"/>
+
+  <text x="80" y="194" class="lane">01 · ПРАВИЛО ТРЕЙДЕРА</text>
+  <text x="80" y="448" class="lane">02 · ИСТОРИЯ ОПЕРАЦИЙ</text>
+  <text x="80" y="702" class="lane">03 · РАЗБОР И РЕЗУЛЬТАТ</text>
+
+  <!-- Rule input -->
+  <rect x="80" y="212" width="360" height="160" rx="22" fill="#182f49" stroke="#3e6888" stroke-width="2"/>
+  <rect x="104" y="234" width="112" height="24" rx="12" fill="#163d5e"/>
+  <text x="119" y="251" class="tag" fill="#83d9f4">ВВОД</text>
+  <text x="104" y="294" class="box-title">Трейдер</text>
+  <text x="104" y="326" class="box-body">Формулирует своё правило</text>
+  <text x="104" y="351" class="box-body">обычными словами</text>
+
+  <!-- Rule parsing -->
+  <rect x="540" y="212" width="360" height="160" rx="22" fill="#20364f" stroke="#7e77dc" stroke-width="2"/>
+  <rect x="564" y="234" width="73" height="24" rx="12" fill="#463e83"/>
+  <text x="580" y="251" class="tag" fill="#c4b8ff">LLM</text>
+  <text x="564" y="294" class="box-title">Разбор правила</text>
+  <text x="564" y="326" class="box-body">Предлагает точное условие</text>
+  <text x="564" y="351" class="box-body">и уточняет неоднозначности</text>
+
+  <!-- Rule approval -->
+  <rect x="1000" y="212" width="360" height="160" rx="22" fill="#203d3b" stroke="#5cae9c" stroke-width="2"/>
+  <rect x="1024" y="234" width="165" height="24" rx="12" fill="#285d54"/>
+  <text x="1039" y="251" class="tag" fill="#9af0d7">КОНТРОЛЬ ЧЕЛОВЕКА</text>
+  <text x="1024" y="294" class="box-title">Подтверждение</text>
+  <text x="1024" y="326" class="box-body">Трейдер принимает или</text>
+  <text x="1024" y="351" class="box-body">исправляет условие</text>
+
+  <!-- Data source -->
+  <rect x="80" y="466" width="360" height="160" rx="22" fill="#182f49" stroke="#3e6888" stroke-width="2"/>
+  <rect x="104" y="488" width="175" height="24" rx="12" fill="#163d5e"/>
+  <text x="119" y="505" class="tag" fill="#83d9f4">ТОЛЬКО ЧТЕНИЕ</text>
+  <text x="104" y="548" class="box-title">T-Invest API / MCP</text>
+  <text x="104" y="580" class="box-body">Исполненные операции</text>
+  <text x="104" y="605" class="box-body">по счёту за период</text>
+
+  <!-- Backend -->
+  <rect x="540" y="466" width="360" height="160" rx="22" fill="#182f49" stroke="#3e6888" stroke-width="2"/>
+  <rect x="564" y="488" width="105" height="24" rx="12" fill="#163d5e"/>
+  <text x="579" y="505" class="tag" fill="#83d9f4">BACKEND</text>
+  <text x="564" y="548" class="box-title">Сбор и нормализация</text>
+  <text x="564" y="580" class="box-body">Пагинация, единый формат,</text>
+  <text x="564" y="605" class="box-body">защищённое хранение токена</text>
+
+  <!-- Storage -->
+  <rect x="1000" y="466" width="360" height="160" rx="22" fill="#203d3b" stroke="#5cae9c" stroke-width="2"/>
+  <rect x="1024" y="488" width="100" height="24" rx="12" fill="#285d54"/>
+  <text x="1039" y="505" class="tag" fill="#9af0d7">ХРАНИЛИЩЕ</text>
+  <text x="1024" y="548" class="box-title">PostgreSQL</text>
+  <text x="1024" y="580" class="box-body">Правила, операции, эпизоды,</text>
+  <text x="1024" y="605" class="box-body">отчёты</text>
+
+  <!-- Deterministic -->
+  <rect x="80" y="720" width="360" height="160" rx="22" fill="#3a3529" stroke="#c7a95e" stroke-width="2"/>
+  <rect x="104" y="742" width="128" height="24" rx="12" fill="#685630"/>
+  <text x="119" y="759" class="tag" fill="#ffe2a0">ТОЧНЫЙ КОД</text>
+  <text x="104" y="802" class="box-title">Проверка правил</text>
+  <text x="104" y="834" class="box-body">Считает суммы и частоту,</text>
+  <text x="104" y="859" class="box-body">находит отклонения</text>
+
+  <!-- Explanation -->
+  <rect x="540" y="720" width="360" height="160" rx="22" fill="#20364f" stroke="#7e77dc" stroke-width="2"/>
+  <rect x="564" y="742" width="73" height="24" rx="12" fill="#463e83"/>
+  <text x="580" y="759" class="tag" fill="#c4b8ff">LLM</text>
+  <text x="564" y="802" class="box-title">Объяснение эпизодов</text>
+  <text x="564" y="834" class="box-body">Группирует повторения,</text>
+  <text x="564" y="859" class="box-body">не приписывает мотивы</text>
+
+  <!-- Output -->
+  <rect x="1000" y="720" width="360" height="160" rx="22" fill="#203d3b" stroke="#5cae9c" stroke-width="2"/>
+  <rect x="1024" y="742" width="88" height="24" rx="12" fill="#285d54"/>
+  <text x="1039" y="759" class="tag" fill="#9af0d7">РЕЗУЛЬТАТ</text>
+  <text x="1024" y="802" class="box-title">Карточка недели</text>
+  <text x="1024" y="834" class="box-body">Отклонения, даты, ссылки</text>
+  <text x="1024" y="859" class="box-body">на исходные операции</text>
+
+  <!-- Flow arrows -->
+  <path d="M446 292 H530" class="line"/>
+  <path d="M906 292 H990" class="line"/>
+  <path d="M1180 379 V456" class="line"/>
+  <path d="M446 546 H530" class="line"/>
+  <path d="M906 546 H990" class="line"/>
+  <path d="M1180 632 V663 H400 V710" class="line"/>
+  <path d="M446 800 H530" class="line"/>
+  <path d="M906 800 H990" class="line"/>
+
+  <line x1="80" y1="914" x2="1360" y2="914" stroke="#2a4963" stroke-width="2"/>
+  <text x="80" y="952" class="foot">Граница данных: модель получает подтверждённое правило и нужные эпизоды; брокерский токен остаётся в backend.</text>
+  <text x="80" y="982" class="foot">GPT-6.1 Sol — модель-кандидат. Доступность метода истории в конкурсном MCP проверим после выдачи sandbox.</text>
+  <text x="80" y="1013" class="foot" fill="#8ea9c0">Рабочая схема для квалификационной заявки · 10 ноября 2026</text>
+</svg>
